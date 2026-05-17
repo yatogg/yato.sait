@@ -1,0 +1,63 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{% if edit %}Редактировать{% else %}Добавить{% endif %} проект — Админ{% endblock %}
+
+{% block admin_content %}
+<div class="admin-header">
+  <h1 class="admin-title">{% if edit %}Редактировать проект{% else %}Новый проект{% endif %}</h1>
+  <a href="{{ url_for('admin_projects') }}" class="btn btn-ghost btn-sm">← Назад</a>
+</div>
+
+<div class="form-card" style="max-width:700px">
+  <form id="project-form" method="POST">
+    <div class="form-group">
+      <label class="form-label" for="title">Название *</label>
+      <input type="text" id="title" name="title"
+             class="form-control {% if errors.title %}is-invalid{% endif %}"
+             placeholder="Например: Интернет-магазин на Django"
+             value="{{ form_data.get('title', '') }}" />
+      <span class="invalid-feedback" id="title-error"
+        {% if not errors.title %}style="display:none"{% endif %}>
+        {{ errors.get('title', '') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="description">Описание *</label>
+      <textarea id="description" name="description"
+                class="form-control {% if errors.description %}is-invalid{% endif %}"
+                placeholder="Подробное описание проекта..."
+                style="min-height:120px">{{ form_data.get('description', '') }}</textarea>
+      <span class="invalid-feedback" id="description-error"
+        {% if not errors.description %}style="display:none"{% endif %}>
+        {{ errors.get('description', '') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="url">Ссылка на проект</label>
+      <input type="url" id="url" name="url"
+             class="form-control"
+             placeholder="https://github.com/..."
+             value="{{ form_data.get('url', '') }}" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="tech_stack">Стек технологий</label>
+      <input type="text" id="tech_stack" name="tech_stack"
+             class="form-control"
+             placeholder="Python, Flask, PostgreSQL, Docker"
+             value="{{ form_data.get('tech_stack', '') }}" />
+      <small style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;display:block">
+        Перечислите через запятую
+      </small>
+    </div>
+
+    <div style="display:flex;gap:1rem">
+      <button type="submit" class="btn btn-primary">
+        {% if edit %}Сохранить изменения{% else %}Добавить проект{% endif %}
+      </button>
+      <a href="{{ url_for('admin_projects') }}" class="btn btn-ghost">Отмена</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

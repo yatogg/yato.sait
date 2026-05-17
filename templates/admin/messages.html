@@ -1,0 +1,49 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Сообщения — Админ{% endblock %}
+
+{% block admin_content %}
+<div class="admin-header">
+  <h1 class="admin-title">Сообщения</h1>
+  <span style="color:var(--text-muted);font-size:0.85rem">Всего: {{ messages|length }}</span>
+</div>
+
+{% if messages %}
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Имя</th>
+        <th>Email</th>
+        <th>Сообщение</th>
+        <th>Дата</th>
+        <th>Удалить</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in messages %}
+      <tr>
+        <td style="color:var(--text-muted)">{{ loop.index }}</td>
+        <td style="white-space:nowrap">
+          {{ m.name }}
+          {% if not m.is_read %}<span class="badge-unread" style="margin-left:6px">new</span>{% endif %}
+        </td>
+        <td style="color:var(--ice3)">{{ m.email }}</td>
+        <td>{{ m.message }}</td>
+        <td style="white-space:nowrap;color:var(--text-muted);font-size:0.8rem">
+          {{ m.created_at.strftime('%d.%m.%Y %H:%M') }}
+        </td>
+        <td>
+          <form class="delete-form" method="POST" action="{{ url_for('admin_delete_message', msg_id=m.id) }}">
+            <button type="submit" class="btn btn-danger">Удалить</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">Сообщений пока нет.</div>
+{% endif %}
+{% endblock %}

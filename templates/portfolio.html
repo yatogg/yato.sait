@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Проекты — Валера Dev{% endblock %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">Портфолио</div>
+      <h2 class="section-title">Мои <em>проекты</em></h2>
+    </div>
+
+    {% if projects %}
+    <div class="projects-grid">
+      {% for p in projects %}
+      <div class="project-card fade-in">
+        <div class="project-num">// {{ '%02d' % loop.index }}</div>
+        <h3 class="project-title">{{ p.title }}</h3>
+        <p class="project-desc">{{ p.description }}</p>
+        {% if p.tech_stack %}
+        <div class="project-tech">
+          {% for t in p.tech_stack.split(',') %}
+          <span class="tech-tag">{{ t.strip() }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if p.url %}
+        <a href="{{ p.url }}" target="_blank" rel="noopener" class="project-link">
+          Смотреть проект
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>Проекты скоро появятся.<br>А пока — <a href="{{ url_for('contact') }}" style="color:var(--ice)">напишите мне</a>!</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Валера — Full-Stack Developer{% endblock %}</title>
+  <meta name="description" content="Разработчик из Якутска. Выполняю проекты любой сложности, 24/7.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="{{ url_for('index') }}" class="nav-logo">
+      &lt;Валера /&gt; <span>// dev</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="{{ url_for('index') }}">Обо мне</a></li>
+      <li><a href="{{ url_for('portfolio') }}">Проекты</a></li>
+      <li><a href="{{ url_for('contact') }}">Контакты</a></li>
+      {% if session.get('admin_logged_in') %}
+      <li><a href="{{ url_for('admin_dashboard') }}">Админ</a></li>
+      <li><a href="{{ url_for('logout') }}">Выйти</a></li>
+      {% endif %}
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── FLASH MESSAGES ───────────────────────────────── -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-wrap">
+    {% for cat, msg in messages %}
+    <div class="flash flash-{{ cat }}">{{ msg }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<!-- ─── MAIN ─────────────────────────────────────────── -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+  <p>© {{ 2024 }} Валера &nbsp;·&nbsp; Якутск, Россия &nbsp;·&nbsp; Работаю 24/7</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Контакты — Валера Dev{% endblock %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">Контакты</div>
+      <h2 class="section-title">Напишите <em>мне</em></h2>
+    </div>
+
+    <div class="contact-layout">
+      <!-- LEFT: info -->
+      <div class="contact-info">
+        <div class="available-badge">
+          <span class="available-dot"></span>
+          Открыт для новых заказов
+        </div>
+        <h3>Обсудим ваш проект?</h3>
+        <p>
+          Расскажите о задаче — отвечу максимально быстро.
+          Работаю 24/7, берусь за проекты любой сложности.
+        </p>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div style="color:var(--text-dim);font-size:0.75rem;margin-bottom:2px">Локация</div>
+            <div>Якутск, Россия</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div style="color:var(--text-dim);font-size:0.75rem;margin-bottom:2px">Режим работы</div>
+            <div>24 часа в сутки, 7 дней в неделю</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div style="color:var(--text-dim);font-size:0.75rem;margin-bottom:2px">Сложность задач</div>
+            <div>Любая — от простых до enterprise</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: form -->
+      <div class="form-card">
+        <form id="contact-form" method="POST" action="{{ url_for('contact') }}" novalidate>
+          <div class="form-group">
+            <label for="name" class="form-label">Ваше имя *</label>
+            <input
+              type="text" id="name" name="name"
+              class="form-control {% if errors.name %}is-invalid{% endif %}"
+              placeholder="Иван Иванов"
+              value="{{ form_data.get('name', '') }}"
+              autocomplete="name"
+            />
+            <span class="invalid-feedback" id="name-error"
+              {% if not errors.name %}style="display:none"{% endif %}>
+              {{ errors.get('name', '') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email *</label>
+            <input
+              type="email" id="email" name="email"
+              class="form-control {% if errors.email %}is-invalid{% endif %}"
+              placeholder="ivan@example.com"
+              value="{{ form_data.get('email', '') }}"
+              autocomplete="email"
+            />
+            <span class="invalid-feedback" id="email-error"
+              {% if not errors.email %}style="display:none"{% endif %}>
+              {{ errors.get('email', '') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Сообщение *</label>
+            <textarea
+              id="message" name="message"
+              class="form-control {% if errors.message %}is-invalid{% endif %}"
+              placeholder="Расскажите о вашей задаче..."
+            >{{ form_data.get('message', '') }}</textarea>
+            <span class="invalid-feedback" id="message-error"
+              {% if not errors.message %}style="display:none"{% endif %}>
+              {{ errors.get('message', '') }}
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Отправить сообщение
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

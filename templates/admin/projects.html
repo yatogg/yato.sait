@@ -1,0 +1,54 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Проекты — Админ{% endblock %}
+
+{% block admin_content %}
+<div class="admin-header">
+  <h1 class="admin-title">Проекты</h1>
+  <a href="{{ url_for('admin_add_project') }}" class="btn btn-primary btn-sm">+ Добавить</a>
+</div>
+
+{% if projects %}
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Название</th>
+        <th>Стек</th>
+        <th>Дата</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in projects %}
+      <tr>
+        <td style="color:var(--text-muted)">{{ loop.index }}</td>
+        <td>
+          <div style="color:#e8f4fa;font-family:var(--font-display);font-weight:600">{{ p.title }}</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">
+            {{ p.description[:60] }}{% if p.description|length > 60 %}…{% endif %}
+          </div>
+        </td>
+        <td style="color:var(--text-muted);font-size:0.8rem">
+          {{ p.tech_stack or '—' }}
+        </td>
+        <td style="white-space:nowrap;color:var(--text-muted);font-size:0.8rem">
+          {{ p.created_at.strftime('%d.%m.%Y') }}
+        </td>
+        <td>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <a href="{{ url_for('admin_edit_project', project_id=p.id) }}" class="btn btn-ghost btn-sm">Изменить</a>
+            <form class="delete-form" method="POST" action="{{ url_for('admin_delete_project', project_id=p.id) }}">
+              <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">Проектов пока нет. <a href="{{ url_for('admin_add_project') }}" style="color:var(--ice)">Добавить первый</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Вход — Валера Dev{% endblock %}
+
+{% block content %}
+<div class="login-page">
+  <div class="login-card">
+    <h2>Вход для админа</h2>
+    <p>Управление проектами и сообщениями</p>
+
+    {% if error %}
+    <div class="login-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="form-group">
+        <label class="form-label" for="username">Логин</label>
+        <input type="text" id="username" name="username" class="form-control"
+               placeholder="admin" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control"
+               placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem">
+        Войти
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
