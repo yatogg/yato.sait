@@ -235,25 +235,25 @@ def init_db():
                 Project(
                     title='Интернет-магазин на Django',
                     description='Полноценный e-commerce проект с корзиной, оплатой и личным кабинетом. Реализованы JWT-авторизация, REST API, интеграция с платёжной системой.',
-                    url='https://github.com',
+                    url='https://vizitka-valera.up.railway.app',
                     tech_stack='Python, Django, PostgreSQL, Redis, Celery'
                 ),
                 Project(
                     title='Telegram-бот для автоматизации',
                     description='Бот для автоматической обработки заказов, уведомлений и аналитики. Интегрирован с CRM и базой данных.',
-                    url='https://t.me',
+                    url='https://vizitka-valera.up.railway.app',
                     tech_stack='Python, aiogram, SQLite, Docker'
                 ),
                 Project(
                     title='Парсер данных и дашборд',
                     description='Система сбора данных с нескольких источников, обработки и визуализации в реальном времени. Расписание через cron.',
-                    url='https://github.com',
+                    url='https://vizitka-valera.up.railway.app',
                     tech_stack='Python, Scrapy, Pandas, Plotly, Flask'
                 ),
                 Project(
                     title='REST API для мобильного приложения',
                     description='Бэкенд для iOS/Android приложения: авторизация, push-уведомления, файловое хранилище, документация Swagger.',
-                    url='https://github.com',
+                    url='https://vizitka-valera.up.railway.app',
                     tech_stack='FastAPI, PostgreSQL, S3, Docker, Nginx'
                 ),
             ]
