@@ -226,7 +226,7 @@ def init_db():
         db.create_all()
         # Create admin if not exists
         if not Admin.query.filter_by(username='valera').first():
-            admin = Admin(username='valera', password_hash=generate_password_hash('admin'))
+            admin = Admin(username='valera', password_hash=generate_password_hash('admin123'))
             db.session.add(admin)
 
         # Seed projects if empty
